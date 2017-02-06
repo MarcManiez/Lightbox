@@ -7,6 +7,7 @@ const url = `https://api.flickr.com/services/rest/?
 let photoSet;
 
 const createPictureNode = function({ farm, id, server, secret}, size) {
+  const src = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_${size || 'n'}.jpg`;
   const tile = document.createElement('div');
   tile.setAttribute('class', 'tile');
   const imageContainer = document.createElement('div');
