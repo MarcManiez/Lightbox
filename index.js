@@ -15,7 +15,8 @@ const app = {
           const jsonFlickrApi = (object) => object;   // matches the name of wrapper function inside of eval(httpRequest.responseText) 
           app.photoSet = eval(httpRequest.responseText).photoset.photo;
           for (let i = 0; i < app.photoSet.length; i++) {
-            app.createImageNode(app.photoSet[i]);
+            const src = app.createImageUrl(app.photoSet[i]);
+            app.createImageNode(src);
           }
         } else {
           console.err('request failed');
@@ -26,8 +27,7 @@ const app = {
     httpRequest.send();
   },
 
-  createImageNode: function({ farm, id, server, secret}, size) {
-    const src = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_${size || 'n'}.jpg`;
+  createImageNode: function(src) {
     const tile = document.createElement('div');
     tile.setAttribute('class', 'tile');
     const imageContainer = document.createElement('div');
@@ -38,6 +38,16 @@ const app = {
     tile.appendChild(imageContainer);
     document.getElementsByClassName('tiles')[0].appendChild(tile);
     return tile;
+  },
+
+  createImageUrl: function({ farm, id, server, secret, url }, size = 'n') {
+    if (url) {
+      url = url.split('');
+      url.splice(-5, 1, size);
+      return url.join('');
+    } else {
+      return `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_${size}.jpg`;
+    }
   },
 };
 
