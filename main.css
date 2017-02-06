@@ -66,9 +66,9 @@ table {
 
 .tile {
   float: left;
-  margin-right: 3%;
+  margin-right: 2vw;
   margin-bottom: 1vh;
-  width: 30%;
+  min-width: 135px;
 }
 
 .image-container {
