@@ -1,4 +1,4 @@
-const app = {
+const app = { // TODO: make into constructor
 
   photoset: null,
   flickrApiUrl: `https://api.flickr.com/services/rest/?
@@ -11,7 +11,7 @@ const app = {
     app.getImages(app.displayImages);
   },
 
-  getImages: function(callback) {
+  getImages: function(callback) { // TODO: promisify
     const httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = function() {
       if (httpRequest.readyState === XMLHttpRequest.DONE) {
@@ -35,14 +35,20 @@ const app = {
     }
   },
 
-  createImageNode: function(src) {
+  createImageNode: function(url) {
     const tile = document.createElement('div');
     tile.setAttribute('class', 'tile');
     const imageContainer = document.createElement('div');
     imageContainer.setAttribute('class', 'image-container');
+    const anchor = document.createElement('a');
+    const largeImageUrl = app.createImageUrl({ url }, 'b');
+    anchor.setAttribute('href', '#');
+    anchor.setAttribute('largeImageUrl', largeImageUrl);
+    anchor.onclick = app.toggleLightbox;
     const image = document.createElement('img');
-    image.setAttribute('src', src);
-    imageContainer.appendChild(image);
+    image.setAttribute('src', url);
+    anchor.appendChild(image);
+    imageContainer.appendChild(anchor);
     tile.appendChild(imageContainer);
     document.getElementsByClassName('tiles')[0].appendChild(tile);
     return tile;
@@ -57,6 +63,14 @@ const app = {
       return `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}_${size}.jpg`;
     }
   },
+
+  toggleLightbox: function(event) {
+    const largeImageUrl = event.currentTarget.attributes[1].nodeValue;
+    const modal = document.getElementsByClassName('modal')[0];
+    modal.style.display = 'block';
+    modal.children[0].setAttribute('src', largeImageUrl);
+  }
 };
 
 app.init();
+
