@@ -6,6 +6,7 @@ const app = { // TODO: make into constructor
     api_key=426a1c2adbd9c8569c74d4a8973068ba&
     format=json&
     photoset_id=72157626579923453`,
+  lightBox: true,
 
   init: function() {
     app.getImages(app.displayImages);
@@ -68,7 +69,7 @@ const app = { // TODO: make into constructor
     const largeImageUrl = event.currentTarget.attributes[1].nodeValue;
     const modal = document.getElementsByClassName('modal')[0];
     modal.style.display = 'block';
-    modal.children[0].setAttribute('src', largeImageUrl);
+    modal.getElementsByTagName('img')[0].setAttribute('src', largeImageUrl);
   }
 };
 
