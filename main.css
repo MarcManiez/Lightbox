@@ -101,12 +101,27 @@ img {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal > .image-container {
-  margin-left: 15%;
-  margin-top: 3.5%;
+.large-image-container {
+  margin: 0 auto;
+  position: relative;
+  height: 0;
+  width: 70%;
+  padding-bottom: 46%;
+  margin-top: 5%; 
 }
 
-.modal > .image-container > img {
-  height: 70%;
-  width: 70%;
+.large-image-container .close {
+    position: relative;
+    font-size: 2em;
+    margin-right: 2%;
+    font-size: 2em;
+    float: right;
+    color: #AAA;
+    display: none;
+    cursor: pointer;
+}
+
+.large-image-container:hover .close {
+    display: block;
+    color: rgba(170, 170, 170, .6);
 }

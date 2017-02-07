@@ -6,7 +6,7 @@ const app = { // TODO: make into constructor
     api_key=426a1c2adbd9c8569c74d4a8973068ba&
     format=json&
     photoset_id=72157626579923453`,
-  lightBox: true,
+  lightBox: false,
 
   init: function() {
     app.getImages(app.displayImages);
@@ -17,7 +17,7 @@ const app = { // TODO: make into constructor
     httpRequest.onreadystatechange = function() {
       if (httpRequest.readyState === XMLHttpRequest.DONE) {
         if (httpRequest.status === 200) {
-          const jsonFlickrApi = (object) => object;   // matches the name of wrapper function inside of eval(httpRequest.responseText) 
+          const jsonFlickrApi = object => object;   // matches the name of wrapper function inside of eval(httpRequest.responseText) 
           app.photoSet = eval(httpRequest.responseText).photoset.photo;
           callback(app.photoSet);
         } else {
@@ -66,8 +66,14 @@ const app = { // TODO: make into constructor
   },
 
   toggleLightbox: function(event) {
+    window.onclick = function(event) {
+      if (event.target === modal || event.target === close) {
+        modal.style.display = 'none';
+      }
+    };
     const largeImageUrl = event.currentTarget.attributes[1].nodeValue;
     const modal = document.getElementsByClassName('modal')[0];
+    const close = document.getElementsByClassName('close')[0];
     modal.style.display = 'block';
     modal.getElementsByTagName('img')[0].setAttribute('src', largeImageUrl);
   }
