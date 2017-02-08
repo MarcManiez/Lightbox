@@ -110,18 +110,32 @@ img {
   margin-top: 5%; 
 }
 
-.large-image-container .close {
-    position: relative;
-    font-size: 2em;
-    margin-right: 2%;
-    font-size: 2em;
-    float: right;
-    color: #AAA;
-    display: none;
-    cursor: pointer;
+.overlay {
+  position: relative;
+  font-size: 2em;
+  color: #AAA;
+  display: none;
+  cursor: pointer;  
 }
 
-.large-image-container:hover .close {
-    display: block;
-    color: rgba(170, 170, 170, .6);
+.large-image-container:hover .overlay {
+  display: block;
+  color: rgba(170, 170, 170, .6);
+}
+
+.close {
+  margin-right: 2%;
+  float: right;
+}
+
+.right-arrow {
+  position: absolute;
+  top: 45%;
+  left: 93%;
+}
+
+.left-arrow {
+  position: absolute;
+  left: 1%;
+  top: 45%;
 }
