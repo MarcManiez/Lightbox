@@ -10,6 +10,8 @@ const app = { // TODO: make into constructor
 
   init: function() {
     app.getImages(app.displayImages);
+    app.showNextPic(); // TODO: don't spam all your event listeners in here, modularize them.
+    app.showPreviousPic(); // TODO: don't spam all your event listeners in here, modularize them.
   },
 
   getImages: function(callback) { // TODO: promisify
@@ -76,6 +78,32 @@ const app = { // TODO: make into constructor
     const close = document.getElementsByClassName('close')[0];
     modal.style.display = 'block';
     modal.getElementsByTagName('img')[0].setAttribute('src', largeImageUrl);
+  },
+
+  showPreviousPic: function() {
+    const leftArrow = document.getElementsByClassName('left-arrow')[0];
+    leftArrow.onclick = function(event) {
+      const largeImageUrl = event.target.parentNode.children[0].getAttribute('src');
+      const currentTile = document.querySelectorAll(`[largeImageUrl="${largeImageUrl}"]`)[0];
+      const previousTile = currentTile.parentNode.parentNode.previousSibling;
+      if (previousTile.nodeType === 3) return;
+      const previousLargeImageUrl = previousTile.children[0].children[0].getAttribute('largeImageUrl');
+      const modal = document.getElementsByClassName('modal')[0];
+      modal.getElementsByTagName('img')[0].setAttribute('src', previousLargeImageUrl);
+    };
+  },
+
+  showNextPic: function() {
+    const rightArrow = document.getElementsByClassName('right-arrow')[0];
+    rightArrow.onclick = function(event) {
+      const largeImageUrl = event.target.parentNode.children[0].getAttribute('src');
+      const currentTile = document.querySelectorAll(`[largeImageUrl="${largeImageUrl}"]`)[0];
+      const nextTile = currentTile.parentNode.parentNode.nextSibling;
+      if (!nextTile) return;
+      const nextLargeImageUrl = nextTile.children[0].children[0].getAttribute('largeImageUrl');
+      const modal = document.getElementsByClassName('modal')[0];
+      modal.getElementsByTagName('img')[0].setAttribute('src', nextLargeImageUrl);
+    };
   }
 };
 
