@@ -3,7 +3,7 @@ const app = {
   photoset: null,
   flickrApiUrl: `https://api.flickr.com/services/rest/?
     method=flickr.photosets.getPhotos&
-    api_key=426a1c2adbd9c8569c74d4a8973068ba&
+    api_key=${window.flickrApiKey}&
     format=json&
     photoset_id=72157626579923453`,
   lightBox: false,
